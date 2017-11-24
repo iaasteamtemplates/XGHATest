@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/sophos-iaas/xg-azure/master",
+            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/master",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
@@ -257,32 +257,6 @@
     },
     "resources": [
         {
-            "name": "SettingUpLoadbalancer",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "[variables('apiVersion').resources.deployments]",
-            "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/', 'SettingUpPublicIP')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('LBTemplate')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "publicIpId": {
-                        "value": "[reference('SettingUpPublicIP').outputs.publicIpId.value]"
-                    },
-                    "loadBalancerName": {
-                        "value": "Loadbalancer"
-                    },
-                    "numberOfInstances": {
-                        "value": "[parameters('numberOfInstances')]"
-                    }
-                }
-            }
-        },
-        {
             "name": "SettingUpAvailabilitySet",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('apiVersion').resources.deployments]",
@@ -426,6 +400,32 @@
                 }
             }
         },
+        {
+            "name": "SettingUpLoadbalancer",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('apiVersion').resources.deployments]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', 'SettingUpPublicIP')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('LBTemplate')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "publicIpId": {
+                        "value": "[reference('SettingUpPublicIP').outputs.publicIpId.value]"
+                    },
+                    "loadBalancerName": {
+                        "value": "Loadbalancer"
+                    },
+                    "numberOfInstances": {
+                        "value": "[parameters('numberOfInstances')]"
+                    }
+                }
+            }
+        },		
         {
             "name": "[concat('SettingUpInterfaceWan', copyIndex())]",
             "type": "Microsoft.Resources/deployments",

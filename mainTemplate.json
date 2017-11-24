@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/sophos-iaas/xg-azure/master",
+            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/master",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
