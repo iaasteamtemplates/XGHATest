@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/FullHA/",
+            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/master/",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
@@ -483,7 +483,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('LBIntTemplate')]",
+                    "uri": "[variables('InterfaceLBIntTemplate')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -513,7 +513,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('InterfaceLBIntTemplate')]",
+                    "uri": "[variables('interfaceLanTemplate')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
