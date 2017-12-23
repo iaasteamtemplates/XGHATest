@@ -37,9 +37,9 @@
                         "name": "[variables('lbFrontendName')]",
                         "properties": {
                             "privateIPAddress": {
-                                "id": "[parameters('privateIP')]",
-                            	"privateIPAllocationMethod": "Static"
-							}
+                                "id": "[parameters('privateIP')]"
+							},
+							"privateIPAllocationMethod": "Static"
                         }
                     }
                 ],
