@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "publicIpId": {
+        "privateIP": {
             "type": "string"
         },
-        "loadBalancerName": {
+		"loadBalancerName": {
             "type": "string"
         },
         "numberOfInstances": {
@@ -13,15 +13,13 @@
         }
     },
     "variables": {
-        "lbFrontendName": "loadBalancerFrontEnd",
-        "lbBackendName": "loadBalancerBackEnd",
-        "inboundNatName": "Webadmin-XG",
-        "probeName": "Probe-Webadmin-On-4444",
+        "lbFrontendName": "IntloadBalancerFrontEnd",
+        "lbBackendName": "IntloadBalancerBackEnd",
+        "probeName": "Probe-Proxy-On-3128",
         "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]",
         "lbFrontendID": "[concat(variables('lbID'),'/frontendIPConfigurations/',variables('lbFrontendName'))]",
         "lbBackendID": "[concat(variables('lbID'),'/backendAddressPools/',variables('lbBackendName'))]",
-        "lbProbeID": "[concat(variables('lbID'),'/probes/',variables('probeName'))]",
-        "inboundNatIDPrefix": "[concat(variables('lbID'),'/inboundNatRules/',variables('inboundNatName'),'-')]"
+        "lbProbeID": "[concat(variables('lbID'),'/probes/',variables('probeName'))]"     
     },
     "resources": [
         {
@@ -38,9 +36,10 @@
                     {
                         "name": "[variables('lbFrontendName')]",
                         "properties": {
-                            "publicIPAddress": {
-                                "id": "[parameters('publicIpId')]"
-                            }
+                            "privateIPAddress": {
+                                "id": "[parameters('privateIP')]"
+                            },
+							"privateIPAllocationMethod": "Static",
                         }
                     }
                 ],
@@ -51,16 +50,16 @@
                 ],
                 "loadBalancingRules": [
                     {
-                        "name": "HTTP",
+                        "name": "AnyTCPUDP",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[variables('lbFrontendID')]"
                             },
-                            "frontendPort": 80,
-                            "backendPort": 80,
+                            "frontendPort": 0,
+                            "backendPort": 0,
                             "enableFloatingIP": false,
                             "idleTimeoutInMinutes": 4,
-                            "protocol": "Tcp",
+                            "protocol": "All",
                             "loadDistribution": "SourceIP",
                             "backendAddressPool": {
                                 "id": "[variables('lbBackendID')]"
@@ -76,34 +75,12 @@
                         "name": "[variables('probeName')]",
                         "properties": {
                             "protocol": "Tcp",
-                            "port": 4444,
+                            "port": 3128,
                             "intervalInSeconds": 5,
                             "numberOfProbes": 2
                         }
                     }
                 ]
-            }
-        },
-        {
-            "apiVersion": "2017-08-01",
-            "name": "[concat(parameters('loadBalancerName'), '/', variables('inboundNatName'), '-', copyIndex())]",
-            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
-            "location": "[resourceGroup().location]",
-            "copy": {
-                "name": "inboundNatLoop",
-                "count": "[parameters('numberOfInstances')]"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Network/loadBalancers/', parameters('loadBalancerName'))]"
-            ],
-            "properties": {
-                "frontendIPConfiguration": {
-                    "id": "[variables('lbFrontendID')]"
-                },
-                "protocol": "tcp",
-                "frontendPort": "[copyIndex(4444)]",
-                "backendPort": 4444,
-                "enableFloatingIP": false
             }
         }
     ],
@@ -118,10 +95,6 @@
         },
         "lbBackendID": {
             "value": "[variables('lbBackendID')]",
-            "type": "string"
-        },
-        "inboundNatIDPrefix": {
-            "value": "[variables('inboundNatIDPrefix')]",
             "type": "string"
         }
     }
