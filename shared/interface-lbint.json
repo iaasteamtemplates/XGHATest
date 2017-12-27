@@ -19,9 +19,6 @@
             "name": "[parameters('interfaceName')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "networkSecurityGroup": {
-                    "id": "[parameters('networkSecurityGroupId')]"
-                },
                 "ipConfigurations": [
                     {
                         "name": "ipconfig",
