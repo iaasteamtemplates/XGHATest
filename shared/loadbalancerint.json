@@ -40,9 +40,9 @@
                         "name": "[variables('lbFrontendName')]",
                         "properties": {
                             "subnet": {
-							"id": "[variables('subnetRef')]"
+							"id": "[parameters('subnetRef')]"
 							},
-							"privateIPAddress": "10.0.2.250",
+							"privateIPAddress": "[parameters('privateIP')]",
 							"privateIPAllocationMethod": "Static"
                         }
                     }
