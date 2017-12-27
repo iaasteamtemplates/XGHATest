@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/master/",
+            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/FullHA/",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
@@ -483,11 +483,14 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('InterfaceLBIntTemplate')]",
+                    "uri": "[variables('LBIntTemplate')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "privateIP": {
+                    "subnetRef": {
+                        "value": "[reference('SettingUpVirtualNetwork','2015-01-01').outputs.subnet2Ref.value]"
+                    },
+					"privateIP": {
                         "value": "[parameters('LoadbalancerIntIP')]"
                     },
 					"loadBalancerName": {
@@ -513,7 +516,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('interfaceLanTemplate')]",
+                    "uri": "[variables('interfaceLBIntTemplate')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
