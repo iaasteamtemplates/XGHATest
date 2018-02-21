@@ -69,6 +69,19 @@ Configuration sync between the XG nodes can be done by using SCFM. Please reach 
 
 [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fiaasteamtemplates%2FXGHATest%2Fmaster%2FinboundHa.json)
 
+[![Deploy to Azure Gov](https://azuredeploy.net/AzureGov.png)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fiaasteamtemplates%2FXGHATest%2Fmaster%2FinboundHa.json)
+
+Production HA templates
+=======================
+
+The official GitHub account does not currently have an option to directly deploy the HA template for XG Firewall on AzureGov. 
+
+The links below can be used instead to deploy the official HA templates in both environments.
+
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsophos-iaas%2Fxg-azure%2Fmaster%2FinboundHa.json)
+
+[![Deploy to Azure Gov](https://azuredeploy.net/AzureGov.png)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsophos-iaas%2Fxg-azure%2Fmaster%2FinboundHa.json)
+
 ***
 
 Useful Links
