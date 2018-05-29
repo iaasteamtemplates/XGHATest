@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # Prompt the admin to enter the Azure gateway IPs of the ports
 read -p 'Please enter the Azure gateway IP of PortA (LAN) : ' portagw
 read -p 'Please enter the Azure gateway IP of PortB (WAN) : ' portbgw
