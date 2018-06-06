@@ -1,6 +1,10 @@
 # xg-azure
 Deployment template to deploy Sophos XG firewall to Azure
 
+Terms and Conditions
+====================
+By deploying this custom template, you agree that ...
+
 
 High Availability
 =================
