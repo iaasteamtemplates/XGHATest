@@ -55,7 +55,7 @@
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Resource Group of existing Virtual Network (optional)."
+                "description": "The resource group of the new network. If using an existing network, this parameter is optional"
             }
         },
         "netName": {
