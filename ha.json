@@ -242,7 +242,7 @@
                 "description": "Number of XG Firewall instances to be deployed."
             }
         },
-		"automationAcountNeworExisting": {
+		"automationAccountNewOrExisting": {
 			"type": "string",
 			"allowedValues": [
 				"New",
@@ -278,7 +278,7 @@
                 "deployments": "2017-08-01"
             }
         },
-		"accountTemplate": "[concat('https://raw.githubusercontent.com/iaasteamtemplates/azure-automation/nested/resources/', parameters('New or existing account'), 'AAAccountTemplate.json')]",
+		"accountTemplate": "[concat('https://raw.githubusercontent.com/iaasteamtemplates/azure-automation/nested/resources/', parameters('automationAccountNewOrExisting'), 'AAAccountTemplate.json')]",
 		"lanNetwork": "[substring(parameters('lanPrefix'),0,sub(length(parameters('lanPrefix')), 4))]",
 		"wanNetwork": "[substring(parameters('wanPrefix'),0,sub(length(parameters('wanPrefix')), 4))]"
     },
