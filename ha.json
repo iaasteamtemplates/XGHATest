@@ -635,10 +635,10 @@
                         "value": "[parameters('adminPassword')]"
                     },
 					"portagw":{
-                        "value": "[concat(parameters('lanNetwork'),'.1')]"
+                        "value": "[concat(variables('lanNetwork'),'.1')]"
                     },
 					"portbgw":{
-                        "value": "[concat(parameters('wanNetwork'),'.1')]"
+                        "value": "[concat(variables('wanNetwork'),'.1')]"
                     },
 					"hostname":{
                         "value": "[reference('SettingUpPublicIP').outputs.fqdn]"
