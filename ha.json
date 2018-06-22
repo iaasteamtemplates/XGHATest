@@ -624,28 +624,19 @@
                 "count": "[parameters('numberOfInstances')]"
             },
 			"dependsOn": [
-				"[concat('Microsoft.Resources/deployments/', 'SettingUpAutomationAccount')]"
+				"[concat('Microsoft.Resources/deployments/', 'SettingUpAutomationAccount')]",
+				"[concat('Microsoft.Resources/deployments/', 'SettingUpVm', copyIndex())]"
 			],
 			"properties": {
 				"runbook": {
-				"name": {
-					"value": "[reference('SettingUpAutomationAccount').outputs.runbookRef.value]"
-					}
+				"name": "[reference('SettingUpAutomationAccount').outputs.runbookRef.value]"
 				},
 				"parameters": {
-					"password":{
-                        "value": "[parameters('adminPassword')]"
-                    },
-					"portagw":{
-                        "value": "[concat(variables('lanNetwork'),'.1')]"
-                    },
-					"portbgw":{
-                        "value": "[concat(variables('wanNetwork'),'.1')]"
-                    },
-					"hostname":{
-                        "value": "[reference('SettingUpPublicIP').outputs.fqdn.value]"
-                    },
-					"sshport":"[copyIndex(2222)]"
+					"password": "[parameters('adminPassword')]",
+					"portagw": "[concat(variables('lanNetwork'),'1')]",
+					"portbgw": "[concat(variables('wanNetwork'),'1')]",
+                    "hostname": "[reference('SettingUpPublicIP').outputs.fqdn.value]",
+					"sshport": "[copyIndex(2222)]"
 				}
 			}
 		}
