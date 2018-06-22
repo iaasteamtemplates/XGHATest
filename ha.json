@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/FullHA-Mod/",
+            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/FullHA-AA/",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
@@ -241,7 +241,23 @@
             "metadata": {
                 "description": "Number of XG Firewall instances to be deployed."
             }
-        }
+        },
+		"automationAcountNeworExisting": {
+			"type": "string",
+			"allowedValues": [
+				"New",
+				"Existing"
+			],
+			"metadata": {
+				"description": "Create a new Azure Automation account or select an existing account to use for XG automation. WARNING: Automation account names are unique, so reusing an account name when creating a new account will overwirte the existing account!."
+			}
+		},
+		"automationAccountName": {
+			"type": "string",
+			"metadata": {
+				"description": "Enter the name of the Azure Automation account you wish to use / create. Note that when creating a new account the account name must be between 6 to 50 characters, and can contain only letters, numbers, and hyphens."
+			}
+		}
     },
     "variables": {
         "publicIpTemplate": "[concat(parameters('baseUrl'),'/shared/publicip-',parameters('publicIpNewOrExisting'),'.json')]",
@@ -261,7 +277,10 @@
             "resources": {
                 "deployments": "2017-08-01"
             }
-        }
+        },
+		"accountTemplate": "[concat('https://raw.githubusercontent.com/iaasteamtemplates/azure-automation/nested/resources/', parameters('New or existing account'), 'AAAccountTemplate.json')]",
+		"lanNetwork": "[substring(parameters('lanPrefix'),0,sub(length(parameters('lanPrefix')), 4))]",
+		"wanNetwork": "[substring(parameters('wanPrefix'),0,sub(length(parameters('wanPrefix')), 4))]"
     },
     "resources": [
         {
@@ -575,7 +594,59 @@
                     }
                 }
             }
-        }
+        },
+		{
+			"name": "SettingUpAutomationAccount",
+			"apiVersion": "2015-01-01",
+			"type": "Microsoft.Resources/deployments",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[variables('accountTemplate')]",
+					"contentVersion": "1.0"
+				},
+				"parameters": {
+					"accountName": {
+						"value": "[parameters('automationAccountName')]"
+					},
+					"accountLocation": {
+						"value": "[parameters('location')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "[concat('SettingUpRunbookJob', copyIndex())]",
+			"type": "Microsoft.Automation/automationAccounts/jobs",
+			"apiVersion": "2017-05-15-preview",
+			"copy": {
+                "name": "JobLoop",
+                "count": "[parameters('numberOfInstances')]"
+            },
+			"dependsOn": [
+				"[concat('Microsoft.Resources/deployments/', 'SettingUpAutomationAccount')]"
+			],
+			"properties": {
+				"runbook": {
+				"name": "[reference('SettingUpAutomationAccount').output.runbookRef.name]"
+			},
+				"parameters": {
+					"password":{
+                        "value": "[parameters('adminPassword')]"
+                    },
+					"portagw":{
+                        "value": "[concat(parameters('lanNetwork'),'.1')]"
+                    },
+					"portbgw":{
+                        "value": "[concat(parameters('wanNetwork'),'.1')]"
+                    },
+					"hostname":{
+                        "value": "[reference('SettingUpPublicIP').outputs.fqdn]"
+                    },
+					"sshport":"[copyIndex(2222)]"
+				}
+			}
+		}
     ],
     "outputs": {
         "fqdn": {
