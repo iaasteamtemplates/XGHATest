@@ -628,7 +628,7 @@
 			],
 			"properties": {
 				"runbook": {
-				"name": "[reference('SettingUpAutomationAccount').outputs.runbookRef.name]"
+				"name": "[reference('SettingUpAutomationAccount').outputs.runbookRef]"
 			},
 				"parameters": {
 					"password":{
