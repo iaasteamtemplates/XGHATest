@@ -3,7 +3,7 @@ Deployment template to deploy Sophos XG firewall to Azure and Azure Automation
 
 Terms and Conditions
 ====================
-By deploying this custom template, you agree that ...(see master)
+By deploying this custom template, you agree that ...(see LICENSE.txt)
 
 
 High Availability
