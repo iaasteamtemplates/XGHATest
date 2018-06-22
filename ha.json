@@ -616,7 +616,7 @@
 			}
 		},
 		{
-			"name": "[concat('SettingUpRunbookJob', copyIndex())]",
+			"name": "[concat(parameters('automationAccountName'),'/RunbookJob',copyIndex())]",
 			"type": "Microsoft.Automation/automationAccounts/jobs",
 			"apiVersion": "2017-05-15-preview",
 			"copy": {
