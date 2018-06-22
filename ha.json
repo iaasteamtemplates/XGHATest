@@ -83,7 +83,7 @@
             "type": "string",
             "defaultValue": "10.0.1.0/24",
             "metadata": {
-                "description": "Prefix for the WAN side Subnet."
+                "description": "Prefix for the WAN side Subnet. Note that each node only requires a single address, so it's recommended to limit subnet size to /24 or smaller."
             }
         },
         "lanName": {
@@ -97,7 +97,7 @@
             "type": "string",
             "defaultValue": "10.0.2.0/24",
             "metadata": {
-                "description": "Prefix for the LAN side Subnet."
+                "description": "Prefix for the LAN side Subnet. Note that each node only requires a single address, so it's recommended to limit subnet size to /24 or smaller."
             }
         },
 		"LoadbalancerIntIP": {
