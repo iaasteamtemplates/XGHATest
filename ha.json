@@ -245,8 +245,8 @@
 		"automationAccountNewOrExisting": {
 			"type": "string",
 			"allowedValues": [
-				"New",
-				"Existing"
+				"new",
+				"existing"
 			],
 			"metadata": {
 				"description": "Create a new Azure Automation account or select an existing account to use for XG automation. WARNING: Automation account names are unique, so reusing an account name when creating a new account will overwirte the existing account!."
