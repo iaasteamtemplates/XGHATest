@@ -4,7 +4,7 @@
     "parameters": {
         "baseUrl": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/iaasteamtemplates/XGHATest/FullHA-AA/",
+            "defaultValue": "https://raw.githubusercontent.com/sophos-iaas/xg-azure-aa/master/",
             "metadata": {
                 "artifactsBaseUrl": "Base URL of the template package"
             }
@@ -236,7 +236,7 @@
         "numberOfInstances": {
             "type": "int",
             "defaultValue": 2,
-            "minValue": 0,
+            "minValue": 1,
             "maxValue": 5,
             "metadata": {
                 "description": "Number of XG Firewall instances to be deployed."
@@ -278,7 +278,7 @@
                 "deployments": "2017-08-01"
             }
         },
-		"accountTemplate": "[concat('https://raw.githubusercontent.com/iaasteamtemplates/azure-automation/nested/resources/', parameters('automationAccountNewOrExisting'), 'AAAccountTemplate.json')]",
+		"accountTemplate": "[concat(parameters('baseUrl'),'/shared/AAAccountTemplate-', parameters('automationAccountNewOrExisting'),'.json')]",
 		"lanNetwork": "[substring(parameters('lanPrefix'),0,sub(length(parameters('lanPrefix')), 4))]",
 		"wanNetwork": "[substring(parameters('wanPrefix'),0,sub(length(parameters('wanPrefix')), 4))]"
     },
