@@ -31,20 +31,6 @@ Connect to the VM instance
 
 ***
 
-Registration
-============
-
-1) Get a demo license here: [Sophos - Free Trial](https://secure2.sophos.com/en-us/products/next-gen-firewall/free-trial.aspx).
-
-2) Enter the serial number you received via e-mail on the admin UI of your XG Firewall and activate the device.
-
-3) Register the device and follow the instructions.
-
-4) Make sure the license is synchronized.
-
-***
-
-
 Useful Links
 ============
 
