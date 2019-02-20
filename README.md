@@ -1,3 +1,10 @@
+# CHANGE notice
+
+All templates hosted in this repository have become obsolete and will no longer function correctly.
+The official Sophos XG A/A templates are available at https://github.com/sophos-iaas/xg-azure-aa 
+
+This repository is only preserved for archiving and research purposes.
+
 # xg-azure
 Deployment template to deploy Sophos XG firewall to Azure
 
